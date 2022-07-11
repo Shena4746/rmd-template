@@ -1,0 +1,127 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Clear Cache",
+			"type": "shell",
+			"command": "Rscript '${workspaceFolder}/tools/clear_cache.R'",
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"close": true
+			}
+		},
+		{
+			"label": "Clear Rendered Results",
+			"type": "shell",
+			"command": "echo Cleared!",
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"close": true
+			},
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"Clear Cache",
+				"Clear All Output Files in docs Directory",
+				"Clear Cache"
+			]
+		},
+		{
+			"label": "Open index.html in Chrome",
+			"type": "shell",
+			"command": "fd index.html -t f ${workspaceFolder}/docs -x google-chrome {}",
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"close": true
+			}
+		},
+		{
+			"label": "Clear All Output Files in docs Directory",
+			"type": "shell",
+			"command": "fd . ${workspaceFolder}/docs -x rm -rf {}",
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"close": true
+			}
+		},
+		{
+			"label": "Render Book (stop)",
+			"type": "shell",
+			"command": "Rscript '${workspaceFolder}/tools/render_book.R'",
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				//"close": true
+			}
+		},
+		{
+			"label": "Render and See",
+			"type": "shell",
+			"command": "echo ending task...",
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"close": true
+			},
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"Render Book",
+				"Open index.html in Chrome"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "Render Book",
+			"type": "shell",
+			"command": "Rscript '${workspaceFolder}/tools/render_book.R'",
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"close": true
+			}
+		},
+		{
+			"label": "Serve Book",
+			"type": "shell",
+			"command": "Rscript '${workspaceFolder}/tools/serve_book.R'",
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"close": true
+			}
+		},
+		{
+			"label": "Open Served Book",
+			"type": "shell",
+			"command": "google-chrome http://127.0.0.1:4321",
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"close": true
+			},
+		},
+		{
+			"label": "Serve and Open Book",
+			"type": "shell",
+			"command": "Rscript '${workspaceFolder}/tools/clear_cache.R'",
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"close": true
+			},
+			"dependsOrder": "parallel",
+			"dependsOn": [
+				"Serve Book",
+				"Open Served Book",
+			]
+		},
+	]
+}
