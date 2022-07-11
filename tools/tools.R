@@ -8,10 +8,12 @@ is_vscode_workspace <- function(path = getwd()) {
         }
 }
 
+# search recursively. maximum depth of recursion is determined by depth argument.
 get_vscode_workspace <- function(path = getwd(), depth = 2, path_init = NULL) {
     if (is_vscode_workspace(path)) {
         return(path)
     }
+    # path_init only used for error message
     path_init <- ifelse(path_init %>% is.null(), path, path_init)
     if (depth <= 0) {
         paste0(

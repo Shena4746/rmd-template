@@ -60,25 +60,6 @@
 			}
 		},
 		{
-			"label": "Render and See",
-			"type": "shell",
-			"command": "echo ending task...",
-			"presentation": {
-				"reveal": "silent",
-				"revealProblems": "onProblem",
-				"close": true
-			},
-			"dependsOrder": "sequence",
-			"dependsOn": [
-				"Render Book",
-				"Open index.html in Chrome"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
 			"label": "Render Book",
 			"type": "shell",
 			"command": "Rscript '${workspaceFolder}/tools/render_book.R'",
@@ -86,6 +67,10 @@
 				"reveal": "silent",
 				"revealProblems": "onProblem",
 				"close": true
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
 			}
 		},
 		{
@@ -117,7 +102,7 @@
 				"revealProblems": "onProblem",
 				"close": true
 			},
-			"dependsOrder": "parallel",
+			"dependsOrder": "parallel", // setting this "sequence" spoils the task since serve_book() does not end until it is abandoned. 
 			"dependsOn": [
 				"Serve Book",
 				"Open Served Book",
