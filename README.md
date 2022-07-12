@@ -1,7 +1,7 @@
 # 概要
 
-Gitbook 出力するとき用のテンプレ.
-scr ディレクトリで書いてビルドすると, knit されたファイルが docs ディレクトリに保存される.
+VSCode で Rmd から `bookdown::render()` を使ってファイル出力するとき用のテンプレ.
+scr ディレクトリで書いてビルドタスクを実行すると, knit されたファイルが docs ディレクトリに保存される.
 
 ## Tasks.json
 
@@ -10,11 +10,11 @@ scr ディレクトリで書いてビルドすると, knit されたファイル
 - Render Book : ビルドタスク. scr 内のソースを見つけて `bookdown::render_book()` を実行する.
 - Open index.html in Chrome : ビルドされた index.html を見つけて Chrome で開く.
 - Serve and Open Book: `bookdown::serve_book()` を実行して Chrome で開く.
-- Clear Rendered Results : docs ディレクトリのファイルおよび一時オブジェクトを破棄し, メモリを掃除する.
+- Clear Rendered Results : 一時オブジェクトおよび docs ディレクトリのファイルを破棄し, メモリを掃除する.
 
-## ./tools/
+## tools
 
-Tasks.json で実行される R スクリプト達.
+Tasks.json で実行される R スクリプト達. VSCode 使ってなくても単独
 
 - dir_config.yml: `bookdown::render_book()` などのオプション引数を算出するためのディレクトリ構成の情報などが入っている. config パッケージで読んで情報を取り出す. ディレクトリ構成を変えたらこの中身もそれに応じて変えること.
 - tools.R: `bookdown::render_book()` 等が使うディレクトリを見つける係. VSCode のワークスペースを見つけてそこを起点にディレクトリの検索を行う.
@@ -22,5 +22,5 @@ Tasks.json で実行される R スクリプト達.
 
 # 参考
 
-[Authoring Books with R Markdown](https://bookdown.org/yihui/bookdown/configuration.html)
-[R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+- [Authoring Books with R Markdown](https://bookdown.org/yihui/bookdown/configuration.html)
+- [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
