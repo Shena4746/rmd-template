@@ -23,7 +23,9 @@ Tasks.json で実行される R スクリプト達.
   - `output_dir =` `${workspaceFolder}` 直下のフォルダで, dir_config.yml の `output_dir_basename` に記載された名前と等しいフォルダ. このフォルダが存在しなければ自動的に作成される.
 - serve_book.R: render_book.R と同様.
 
-tools.R の関数を読み込むために `source("./tools/tools.R")` としており, `${workspaceFolder}` から呼ばれることを想定していることに注意. もし他所から呼ぶ際は `source(path/to/tools.R)` の中身を適切に設定する必要がある. それさえ済ませば, `get_vscode_workspace()` が `${workspaceFolder}` を見つけてくれるので, 他の変更は必要ないはず. ディレクトリ構造を根本的に変えた場合は, この限りではない.
+これらのスクリプトは tools.R の関数を読み込むために `source("./tools/tools.R")` としている, すなわち, `${workspaceFolder}` から呼ばれることを想定していることに注意. もし他所から呼ぶ際は `source(path/to/tools.R)` の中身を適切に設定する必要がある. それさえ済ませば, `get_vscode_workspace()` が `${workspaceFolder}` を見つけてくれるので, 他の変更は必要ないはず. もちろん, ディレクトリ構造を根本的に変えた場合は, この限りではない.
+
+逆に言えば, VSCode 上で使わなくても, `get_vscode_workspace()` が適切なディレクトリを見つけることができるようにすれば問題ない.
 
 ## 参考
 
