@@ -15,4 +15,4 @@ gc(reset = TRUE)
 knitr::opts_chunk$set(eval = TRUE, include = TRUE, echo = TRUE, warning = FALSE, collapse = TRUE)
 ```
 
-hello world. `gitbook::serve_book()` reflects changes on save.
+hello world. `gitbook::serve_book()` reflects changes on save. See tools directory.

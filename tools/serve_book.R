@@ -1,31 +1,18 @@
+# this script assumes that it is called from ${workspaceFolder}.
+# if you call it from elsewhere, set the appropriate path to the tools.R.
+# then get_vscode_workspace() finds the absolute path of ${workspaceFolder}.
 library(magrittr)
-# relative to ${workspaceFolder}
 source("./tools/tools.R")
 
-vscode_workspace_dir <- get_vscode_workspace()
+# create output directory if it does not exists
+if (get_output_dir() %>% length() == 0) {
+    stop("No rendered results found. Run bookdown::render_book() first.")
+}
 
-# dir and file variables
-# read config
-dir_config_path <- "./tools/dir_config.yml"
-conf <- config::get(file = dir_config_path)
-
-output_dir_basename <- conf$output_dir_basename
-scr_dir_basename <- conf$scr_dir_basename
-not_search_here <- conf$not_search_here
-rmd_basename <- conf$rmd_basename
-
-# set work directory for R: ${workspaceFolder}/scr_dir_basename
-get_dir(
-    dir_basename = scr_dir_basename,
-    dir_search = vscode_workspace_dir,
-    except = not_search_here
-) %>% setwd() # render here
-
-# get full path of output directory
-output_dir <- get_dir(
-    dir_basename = output_dir_basename,
-    dir_search = vscode_workspace_dir,
-    except = not_search_here
+get_scr_dir() %>% setwd()
+bookdown::serve_book(
+    dir = ".",
+    output_dir = get_output_dir(),
+    preview = TRUE,
+    in_session = FALSE
 )
-
-bookdown::serve_book(dir = ".", output_dir = output_dir, preview = TRUE, in_session = FALSE)

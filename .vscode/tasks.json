@@ -30,19 +30,12 @@
 			]
 		},
 		{
-			"label": "Open index.html in Chrome",
-			"type": "shell",
-			"command": "fd index.html -t f ${workspaceFolder}/docs -x google-chrome {}",
-			"presentation": {
-				"reveal": "silent",
-				"revealProblems": "onProblem",
-				"close": true
-			}
-		},
-		{
 			"label": "Clear All Output Files in docs Directory",
 			"type": "shell",
-			"command": "fd . ${workspaceFolder}/docs -x rm -rf {}",
+			"command": "Rscript ${workspaceFolder}/tools/clear_all_output.R",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
 			"presentation": {
 				"reveal": "silent",
 				"revealProblems": "onProblem",
@@ -107,6 +100,19 @@
 				"Serve Book",
 				"Open Served Book",
 			]
+		},
+		{
+			"label": "Open index.html in Chrome",
+			"type": "shell",
+			"command": "Rscript ${workspaceFolder}/tools/open_in_chrome.R",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem",
+				"close": true
+			}
 		},
 	]
 }
