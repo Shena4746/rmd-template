@@ -14,6 +14,29 @@ test_path <- function(path, raise_error = TRUE) {
     return(TRUE)
 }
 
+test_path2 <- function(path, raise_error = TRUE) {
+    # if the path exists
+    if (!file.exists(path) && !dir.exists(path)) {
+        if (!raise_error) {
+            return(FALSE)
+        }
+        msg <- paste("No such file or directory exists:", path)
+        stop(msg)
+    }
+    # if the path exists within root project
+    if (stringr::str_starts(
+        string = path,
+        pattern = find_path_relative_root(),
+        negate = TRUE
+    )) {
+        if (!raise_error) {
+            return(FALSE)
+        }
+        stop(paste("file is outside project", path))
+    }
+    return(TRUE)
+}
+
 get_dirconfig <- function(name = "dir_config.yml", raise_error = TRUE) {
     path <- find_path_relative_root(name)
     ifelse(
