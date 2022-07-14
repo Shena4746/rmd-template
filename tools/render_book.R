@@ -1,28 +1,26 @@
-# this script assumes that it is called from ${workspaceFolder}.
-# if you call it from elsewhere, set the appropriate path to the tools.R.
-# then get_vscode_workspace() finds the absolute path of ${workspaceFolder}.
 library(magrittr)
-source("./tools/tools.R")
+# specifies the file project-root/tools/tools.R
+source(rprojroot::is_git_root$make_fix_file()("tools", "tools.R"))
 
 conf <- config::get(file = get_dirconfig())
 # create output directory if it does not exists
-if (get_output_dir() %>% length() == 0) {
-    dir.create(conf$output_dir_basename)
+if (get_output_dir() %>% dir.exists() %>% isFALSE()) {
+    dir.create(get_output_dir())
 }
-# create empty book file if it does not exist
+# create empty book file if it does not exist. this is just for convenience.
 # get book file path
-book_file <- list.files(
-    path = get_scr_dir(),
-    pattern = get_book_filename(),
-    full.names = TRUE
+book_file_path <- find_path_relative_root(
+    conf$scr_dir_basename,
+    get_book_filename()
 )
-if (book_file %>% length() == 0) {
-    new_file <- file.path(get_scr_dir(), get_book_filename())
-    file.create(new_file)
+if (book_file_path %>% file.exists() %>% isFALSE()) {
+    file.create(book_file_path)
 }
 
-get_scr_dir() %>% setwd() # render here
-bookdown::render_book(
-    input = conf$rmd_basename,
-    output_dir = get_output_dir()
+withr::with_dir(
+    new = get_scr_dir(),
+    code = bookdown::render_book(
+        input = conf$rmd_basename,
+        output_dir = get_output_dir()
+    )
 )

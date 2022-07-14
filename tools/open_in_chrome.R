@@ -1,9 +1,10 @@
-source("./tools/tools.R") # assume this file is called from vscode workspace
+# specifies the file project-root/tools/tools.R
+source(rprojroot::is_git_root$make_fix_file()("tools", "tools.R"))
 
-# file name to open in chrome
-names <- stringr::str_replace(string = get_book_filename(), pattern = "\\.Rmd", replacement = "\\.html")
-
-# path of the file with that name
-path <- list.files(path = get_output_dir(), pattern = names[1], full.names = TRUE)[1]
-
-base::system2("google-chrome", args = path)
+# stop if output file is not found
+if (get_rendered_book() %>% file.exists() %>% isFALSE()) {
+    stop(
+        "No rendered results found. bookdown::render_book() first."
+    )
+}
+base::system2("google-chrome", args = get_rendered_book())

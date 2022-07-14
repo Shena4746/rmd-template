@@ -14,23 +14,7 @@
 			}
 		},
 		{
-			"label": "Clear Rendered Results",
-			"type": "shell",
-			"command": "echo Cleared!",
-			"presentation": {
-				"reveal": "silent",
-				"revealProblems": "onProblem",
-				"close": true
-			},
-			"dependsOrder": "sequence",
-			"dependsOn": [
-				"Clear Cache",
-				"Clear All Output Files in docs Directory",
-				"Clear Cache"
-			]
-		},
-		{
-			"label": "Clear All Output Files in docs Directory",
+			"label": "Clear All Rendered Results",
 			"type": "shell",
 			"command": "Rscript ${workspaceFolder}/tools/clear_all_output.R",
 			"options": {
@@ -67,9 +51,12 @@
 			}
 		},
 		{
-			"label": "Serve Book",
+			"label": "Open Book in Chrome",
 			"type": "shell",
-			"command": "Rscript '${workspaceFolder}/tools/serve_book.R'",
+			"command": "Rscript ${workspaceFolder}/tools/open_in_chrome.R",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
 			"presentation": {
 				"reveal": "silent",
 				"revealProblems": "onProblem",
@@ -77,37 +64,9 @@
 			}
 		},
 		{
-			"label": "Open Served Book",
-			"type": "shell",
-			"command": "google-chrome http://127.0.0.1:4321",
-			"presentation": {
-				"reveal": "silent",
-				"revealProblems": "onProblem",
-				"close": true
-			},
-		},
-		{
 			"label": "Serve and Open Book",
 			"type": "shell",
-			"command": "Rscript '${workspaceFolder}/tools/clear_cache.R'",
-			"presentation": {
-				"reveal": "silent",
-				"revealProblems": "onProblem",
-				"close": true
-			},
-			"dependsOrder": "parallel", // setting this "sequence" spoils the task since serve_book() does not end until it is abandoned. 
-			"dependsOn": [
-				"Serve Book",
-				"Open Served Book",
-			]
-		},
-		{
-			"label": "Open index.html in Chrome",
-			"type": "shell",
-			"command": "Rscript ${workspaceFolder}/tools/open_in_chrome.R",
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
+			"command": "Rscript ${workspaceFolder}/tools/serve_book.R & google-chrome http://127.0.0.1:4321",
 			"presentation": {
 				"reveal": "silent",
 				"revealProblems": "onProblem",
